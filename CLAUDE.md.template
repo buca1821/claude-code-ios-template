@@ -1,0 +1,51 @@
+# {{PROJECT_NAME}} — Claude Code Context
+
+{{PROJECT_DESCRIPTION}}
+
+## Project Overview
+
+- **Platform**: iOS 26+, SwiftUI
+- **Architecture**: MVVM, feature-based folder structure
+- **Repo**: {{GITHUB_REPO}}
+
+## Build & Test
+
+**Using XcodeBuildMCP** (recommended):
+- Scheme: `{{SCHEME}}`
+- Simulator: {{SIMULATOR}}
+- Always call `session_show_defaults` first
+
+**Using scripts** (if available):
+```bash
+./scripts/run-tests.sh
+```
+
+## Key Conventions
+
+### MVVM
+- ViewModels: `@MainActor`, `@Observable` (NOT `ObservableObject`, NOT `@Published`)
+- Views own their ViewModel via `@State private var viewModel:`
+- Business logic stays in the ViewModel; Views are declarative only
+
+### Localization
+- Never hardcode user-facing strings — use `String(localized: "key.name")`
+- Key naming: dot-notation (`feature.element`)
+
+### Testing
+- **Framework**: Swift Testing (`import Testing`, `#expect`) — preferred for all new tests
+- **UI Tests**: XCTest (`XCUITest`) only
+
+### Design System
+- Use project design tokens for colors, spacing, typography
+- Never use magic numbers or raw system colors
+
+## Git Workflow
+
+- **Never commit to `main`**. Branch naming: `feat/<name>-<issue>` or `fix/<name>-<issue>`
+- **Conventional Commits**: `feat:`, `fix:`, `docs:`, `test:`, `refactor:`, `chore:`
+- **PRs**: Title follows Conventional Commits. Reference issues with `Closes #XX`.
+
+## Language
+
+- **Conversations and prompts** → Spanish
+- **All repo files** (code, comments, docs, commits, PRs) → English
