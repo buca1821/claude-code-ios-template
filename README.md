@@ -15,6 +15,15 @@ Reusable Claude Code configuration for iOS/SwiftUI projects. Provides skills, co
 | **review-pr/** | Pre-PR code review with deprecated API detection |
 | **xcode-qa/** | Build, test, and QA with XcodeBuildMCP |
 
+### Agents (`.claude/agents/`)
+
+| Agent | Description |
+|---|---|
+| **api-freshness-auditor** | Deprecated APIs, outdated patterns, iOS target updates |
+| **architecture-auditor** | MVVM compliance, DI, concurrency, feature structure |
+| **code-health-auditor** | File sizes, complexity, tech debt markers, clean code |
+| **ux-accessibility-auditor** | VoiceOver, Dynamic Type, UI states, user feedback |
+
 ### Commands (`.claude/commands/`)
 
 | Command | Usage |
@@ -69,7 +78,8 @@ After setup, customize for your project:
 
 1. **`.claude/CLAUDE.md`** — Project-specific context, structure, conventions
 2. **`.claude/rules/`** — Add project-specific rules (design system, data layer patterns)
-3. **`.claude/commands/`** — Add project-specific commands (e.g., `/implement-issue`)
+3. **`.claude/agents/`** — Adapt audit agents to your project's frameworks and patterns
+4. **`.claude/commands/`** — Add project-specific commands (e.g., `/implement-issue`)
 
 ## License
 

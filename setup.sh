@@ -56,6 +56,13 @@ for rule in "$SCRIPT_DIR"/.claude/rules/*.md; do
     fi
 done
 
+# Copy agents
+echo "Copying agents..."
+mkdir -p "$TARGET_DIR/.claude/agents"
+for agent in "$SCRIPT_DIR"/.claude/agents/*.md; do
+    [ -f "$agent" ] && cp "$agent" "$TARGET_DIR/.claude/agents/" && echo "  + $(basename "$agent")"
+done
+
 # Copy hooks
 echo "Copying hooks..."
 for hook in "$SCRIPT_DIR"/.claude/hooks/*.sh; do
@@ -107,4 +114,5 @@ echo "  1. Review CLAUDE.md — add project-specific context"
 echo "  2. Customize skills in .claude/skills/ for your project"
 echo "  3. Add project-specific rules in .claude/rules/"
 echo "  4. Add project-specific commands in .claude/commands/"
-echo "  5. Commit .claude/ to your repo"
+echo "  5. Customize agents in .claude/agents/ for your project"
+echo "  6. Commit .claude/ to your repo"
