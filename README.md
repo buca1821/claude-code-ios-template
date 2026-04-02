@@ -8,6 +8,12 @@ Reusable Claude Code configuration for iOS/SwiftUI projects. Provides skills, co
 
 | Skill | Description |
 |---|---|
+| **swiftui/** | View composition, layout, animations, Charts, Liquid Glass, macOS APIs. Adapted from [AvdLee/SwiftUI-Agent-Skill](https://github.com/AvdLee/SwiftUI-Agent-Skill) (MIT) |
+| **design-system/** | Semantic tokens (color, typography, spacing), components, theming, preview patterns |
+| **security/** | Keychain, App Transport Security, certificate pinning, secrets management |
+| **networking/** | APIClient with protocol-based DI, async/await URLSession, retry, offline handling |
+| **logging/** | OSLog structured logging, MetricKit production diagnostics |
+| **cicd/** | GitHub Actions workflows for iOS — build, test, lint on PRs |
 | **performance/** | SwiftUI debugging, Instruments/xctrace profiling, memory, energy |
 | **swift-concurrency/** | Swift 6.2 patterns, actors, @concurrent, async bridging |
 | **testing-tdd/** | Red-green-refactor, reproduce-first bug fixes, test data factories |

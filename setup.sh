@@ -30,7 +30,7 @@ mkdir -p "$TARGET_DIR/.claude/hooks"
 
 # Copy skills
 echo "Copying skills..."
-for skill in performance swift-concurrency testing-tdd app-store review-pr xcode-qa; do
+for skill in swiftui design-system security networking logging cicd performance swift-concurrency testing-tdd app-store review-pr xcode-qa; do
     if [ -d "$SCRIPT_DIR/.claude/skills/$skill" ]; then
         cp -r "$SCRIPT_DIR/.claude/skills/$skill" "$TARGET_DIR/.claude/skills/"
         echo "  + $skill"
