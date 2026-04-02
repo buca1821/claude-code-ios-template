@@ -32,6 +32,7 @@ Reusable Claude Code configuration for iOS/SwiftUI projects. Provides skills, co
 | `/tdd-bug-fix` | Fix a bug with a reproduction test first |
 | `/performance-audit` | Audit SwiftUI performance for a view or feature |
 | `/prepare-release` | Pre-App Store submission checklist |
+| `/run-audits` | Run all 4 audit agents in parallel (or a single one) |
 
 ### Rules (`.claude/rules/`)
 
