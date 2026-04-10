@@ -1,56 +1,45 @@
 # Claude Code iOS Template
 
-Reusable Claude Code configuration for iOS/SwiftUI projects. Provides skills, commands, rules, and a setup script to bootstrap any new iOS project with AI-assisted development best practices.
+Lightweight setup for iOS/SwiftUI projects. Installs shared plugins from [claude-marketplace](https://github.com/buca1821/claude-marketplace) and generates project-specific configuration.
 
-## What's Included
+## Architecture
 
-### Skills (`.claude/skills/`)
+| Layer | What | Updates |
+|-------|------|---------|
+| **Marketplace plugins** | Skills (12), audit agents (4), TDD commands, git hooks | Centralized — update once, all projects benefit |
+| **This template** | CLAUDE.md, rules, project-specific commands | Per-project — customizable after setup |
 
-| Skill | Description |
-|---|---|
-| **swiftui/** | View composition, layout, animations, Charts, Liquid Glass, macOS APIs. Adapted from [AvdLee/SwiftUI-Agent-Skill](https://github.com/AvdLee/SwiftUI-Agent-Skill) (MIT) |
-| **design-system/** | Semantic tokens (color, typography, spacing), components, theming, preview patterns |
-| **security/** | Keychain, App Transport Security, certificate pinning, secrets management |
-| **networking/** | APIClient with protocol-based DI, async/await URLSession, retry, offline handling |
-| **logging/** | OSLog structured logging, MetricKit production diagnostics |
-| **cicd/** | GitHub Actions workflows for iOS — build, test, lint on PRs |
-| **performance/** | SwiftUI debugging, Instruments/xctrace profiling, memory, energy |
-| **swift-concurrency/** | Swift 6.2 patterns, actors, @concurrent, async bridging |
-| **testing-tdd/** | Red-green-refactor, reproduce-first bug fixes, test data factories |
-| **app-store/** | ASO keywords, rejection prevention, review responses |
-| **review-pr/** | Pre-PR code review with deprecated API detection |
-| **xcode-qa/** | Build, test, and QA with XcodeBuildMCP |
+### Plugins installed
 
-### Agents (`.claude/agents/`)
+| Plugin | Contents |
+|--------|----------|
+| `ios-swift-skills` | 12 skills: SwiftUI, design-system, swift-concurrency, security, networking, testing-tdd, performance, logging, cicd, app-store, review-pr, xcode-qa |
+| `ios-audit-agents` | 4 audit agents + `/run-audits` command |
+| `ios-tdd-commands` | `/tdd-feature`, `/tdd-bug-fix`, `/performance-audit` |
+| `ios-git-hooks` | Guard main branch + pre-commit quality checks |
 
-| Agent | Description |
-|---|---|
-| **api-freshness-auditor** | Deprecated APIs, outdated patterns, iOS target updates |
-| **architecture-auditor** | MVVM compliance, DI, concurrency, feature structure |
-| **code-health-auditor** | File sizes, complexity, tech debt markers, clean code |
-| **ux-accessibility-auditor** | VoiceOver, Dynamic Type, UI states, user feedback |
+### Template files (per-project)
 
-### Commands (`.claude/commands/`)
-
-| Command | Usage |
-|---|---|
-| `/tdd-feature` | Build a feature test-first with TDD |
-| `/tdd-bug-fix` | Fix a bug with a reproduction test first |
-| `/performance-audit` | Audit SwiftUI performance for a view or feature |
-| `/prepare-release` | Pre-App Store submission checklist |
-| `/run-audits` | Run all 4 audit agents in parallel (or a single one) |
-
-### Rules (`.claude/rules/`)
-
-| Rule | Trigger |
-|---|---|
-| `swift-patterns.md` | ViewModel, Pattern, MVVM |
-| `testing-standards.md` | test, XCTest, coverage |
-| `git-workflow.md` | git, branch, PR, commit |
+| File | Purpose |
+|------|---------|
+| `CLAUDE.md` | Project name, scheme, simulator, conventions |
+| `.claude/rules/swift-patterns.md` | MVVM, state management, DI patterns |
+| `.claude/rules/testing-standards.md` | Swift Testing, mocking, locale handling |
+| `.claude/rules/git-workflow.md` | Branch naming, conventional commits |
+| `.claude/commands/prepare-release.md` | Pre-App Store submission checklist |
 
 ## Installation
 
-### Option 1: Setup script (recommended)
+### Prerequisites
+
+Register the marketplace (one-time):
+
+```bash
+# The setup script installs plugins from buca1821/claude-marketplace
+# Make sure it's registered in ~/.claude/plugins/known_marketplaces.json
+```
+
+### Setup
 
 ```bash
 cd your-ios-project
@@ -58,17 +47,9 @@ curl -sL https://raw.githubusercontent.com/buca1821/claude-code-ios-template/mai
 ```
 
 The script will:
-1. Copy skills, commands, and rules to your project
-2. Ask for project-specific configuration (name, repo, scheme)
+1. Install 4 marketplace plugins (shared globally)
+2. Copy customizable rules and commands to your project
 3. Generate a tailored `CLAUDE.md`
-
-### Option 2: Manual
-
-```bash
-git clone https://github.com/buca1821/claude-code-ios-template.git /tmp/ios-template
-cp -r /tmp/ios-template/.claude your-ios-project/
-# Edit CLAUDE.md to match your project
-```
 
 ## Conventions
 
@@ -83,10 +64,20 @@ cp -r /tmp/ios-template/.claude your-ios-project/
 
 After setup, customize for your project:
 
-1. **`.claude/CLAUDE.md`** — Project-specific context, structure, conventions
-2. **`.claude/rules/`** — Add project-specific rules (design system, data layer patterns)
-3. **`.claude/agents/`** — Adapt audit agents to your project's frameworks and patterns
-4. **`.claude/commands/`** — Add project-specific commands (e.g., `/implement-issue`)
+1. **`CLAUDE.md`** — Project-specific context and structure
+2. **`.claude/rules/`** — Relax or extend rules per project
+3. **`.claude/commands/`** — Add project-specific commands
+
+## Updating plugins
+
+When skills or agents improve, update all projects at once:
+
+```bash
+claude plugin update ios-swift-skills@claude-marketplace
+claude plugin update ios-audit-agents@claude-marketplace
+claude plugin update ios-tdd-commands@claude-marketplace
+claude plugin update ios-git-hooks@claude-marketplace
+```
 
 ## License
 

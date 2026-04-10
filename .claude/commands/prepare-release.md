@@ -10,7 +10,7 @@ Version number: `$ARGUMENTS` (e.g., `1.0.0`)
 
 ### 1. Load App Store skill
 
-Read `.claude/skills/app-store/references/rejection-handler.md` for the full audit checklist.
+Load the app-store skill for the full rejection prevention audit checklist.
 
 ### 2. Code & build verification
 
@@ -43,7 +43,7 @@ Read `.claude/skills/app-store/references/rejection-handler.md` for the full aud
 
 ### 6. App Store metadata
 
-Read `.claude/skills/app-store/references/aso-keywords.md` for guidance.
+Load the app-store skill for ASO keyword optimization guidance.
 
 - [ ] App name (30 chars max)
 - [ ] Subtitle (30 chars max)

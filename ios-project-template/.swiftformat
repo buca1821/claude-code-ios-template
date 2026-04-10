@@ -1,0 +1,36 @@
+# SwiftFormat Configuration
+
+--indent 4
+--indentcase false
+--trimwhitespace always
+--nospaceoperators ..<,...
+--ranges spaced
+--semicolons inline
+--commas inline
+--decimalgrouping 3,4
+--binarygrouping 4,8
+--octalgrouping 4,8
+--hexgrouping 4,8
+--fractiongrouping disabled
+--exponentgrouping disabled
+--patternlet hoist
+--self remove
+--importgrouping testable-bottom
+--stripunusedargs closure-only
+--wraparguments before-first
+--wrapparameters before-first
+--wrapcollections before-first
+--closingparen balanced
+--hexliteralcase uppercase
+--elseposition same-line
+--guardelse same-line
+
+--enable isEmpty
+--enable sortedImports
+--enable redundantReturn
+--enable redundantSelf
+
+--disable andOperator
+--disable blankLinesAroundMark
+
+--exclude Pods,Carthage,.build,DerivedData,.swiftpm

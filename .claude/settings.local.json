@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/luisenriquelopezmartinez/Proyectos/SnapGPX/.claude/skills/**)",
+      "Read(//Users/luisenriquelopezmartinez/Proyectos/SmartCharge/.claude/skills/**)"
+    ]
+  }
+}
