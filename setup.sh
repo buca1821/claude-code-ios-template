@@ -27,7 +27,7 @@ echo "Installing marketplace plugins..."
 echo "  (Requires buca1821/claude-marketplace registered in known_marketplaces.json)"
 echo ""
 
-PLUGINS=("ios-swift-skills" "ios-audit-agents" "ios-tdd-commands" "ios-git-hooks")
+PLUGINS=("ios-swift-skills" "ios-audit-agents" "ios-git-hooks" "implement-issue")
 for plugin in "${PLUGINS[@]}"; do
     if claude plugin install "${plugin}@claude-marketplace" 2>/dev/null; then
         echo "  + $plugin"
