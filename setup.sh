@@ -29,10 +29,10 @@ echo ""
 
 PLUGINS=("ios-swift-skills" "ios-audit-agents" "ios-git-hooks" "implement-issue")
 for plugin in "${PLUGINS[@]}"; do
-    if claude plugin install "${plugin}@claude-marketplace" 2>/dev/null; then
+    if claude plugin install "${plugin}@buca1821-marketplace" 2>/dev/null; then
         echo "  + $plugin"
     else
-        echo "  ~ $plugin (install manually: claude plugin install ${plugin}@claude-marketplace)"
+        echo "  ~ $plugin (install manually: claude plugin install ${plugin}@buca1821-marketplace)"
     fi
 done
 
