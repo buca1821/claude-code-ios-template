@@ -1,82 +1,108 @@
 # Claude Code iOS Template
 
-Lightweight setup for iOS/SwiftUI projects. Installs shared plugins from [claude-marketplace](https://github.com/buca1821/claude-marketplace) and generates project-specific configuration.
+Lightweight setup for iOS/SwiftUI projects using Claude Code. Two scripts, two purposes:
 
-## Architecture
+- **`setup.sh`** — Adds Claude Code config (CLAUDE.md, rules, commands, plugins) to an **existing** iOS project
+- **`ios-project-template/setup-project.sh`** — Scaffolds a **new** Swift project from scratch with xcodegen
 
-| Layer | What | Updates |
-|-------|------|---------|
-| **Marketplace plugins** | Skills (12), audit agents (4), TDD commands, git hooks | Centralized — update once, all projects benefit |
-| **This template** | CLAUDE.md, rules, project-specific commands | Per-project — customizable after setup |
+## Quick Start
 
-### Plugins installed
-
-| Plugin | Contents |
-|--------|----------|
-| `ios-swift-skills` | 12 skills: SwiftUI, design-system, swift-concurrency, security, networking, testing, performance, logging, cicd, app-store, review-pr, xcode-qa |
-| `ios-audit-agents` | 4 audit agents + `/run-audits` and `/performance-audit` |
-| `ios-git-hooks` | Guard main branch + pre-commit quality checks |
-| `implement-issue` | End-to-end GitHub issue workflow: read → plan → implement → build → PR → reviews |
-
-### Template files (per-project)
-
-| File | Purpose |
-|------|---------|
-| `CLAUDE.md` | Project name, scheme, simulator, conventions |
-| `.claude/rules/swift-patterns.md` | MVVM, state management, DI patterns |
-| `.claude/rules/testing-standards.md` | Swift Testing, mocking, locale handling |
-| `.claude/rules/git-workflow.md` | Branch naming, conventional commits |
-| `.claude/commands/prepare-release.md` | Pre-App Store submission checklist |
-
-## Installation
-
-### Prerequisites
-
-Register the marketplace (one-time):
+### Existing project
 
 ```bash
-# The setup script installs plugins from buca1821/claude-marketplace
-# Make sure it's registered in ~/.claude/plugins/known_marketplaces.json
+git clone https://github.com/buca1821/claude-code-ios-template.git /tmp/claude-code-ios-template
+cd your-existing-project
+bash /tmp/claude-code-ios-template/setup.sh
 ```
 
-### Setup
+You'll be asked to:
+1. Enter project info (name, scheme, simulator)
+2. Pick which **plugins** to install (iOS skills, audit agents, git hooks, etc.)
+3. Pick which **rules** to include (MVVM patterns, testing, git workflow)
+
+Output:
+```
+your-project/
+├── CLAUDE.md                     ← Project context for Claude
+└── .claude/
+    ├── rules/
+    │   ├── swift-patterns.md     ← MVVM, @Observable, DI
+    │   ├── testing-standards.md  ← Swift Testing, mocks
+    │   └── git-workflow.md       ← Branches, conventional commits
+    └── commands/
+        └── prepare-release.md    ← App Store submission checklist
+```
+
+### New project from scratch
 
 ```bash
-cd your-ios-project
-curl -sL https://raw.githubusercontent.com/buca1821/claude-code-ios-template/main/setup.sh | bash
+git clone https://github.com/buca1821/claude-code-ios-template.git /tmp/claude-code-ios-template
+bash /tmp/claude-code-ios-template/ios-project-template/setup-project.sh
 ```
 
-The script will:
-1. Install 4 marketplace plugins (shared globally)
-2. Copy customizable rules and commands to your project
-3. Generate a tailored `CLAUDE.md`
+This creates a compilable Swift project with:
+- MVVM architecture with `@Observable`
+- Example feature (Counter) showing the full pattern
+- AppEnvironment with protocol-based DI
+- Swift Testing unit tests that pass
+- SwiftLint + SwiftFormat configs (optional)
+
+Then apply Claude Code config:
+```bash
+bash /tmp/claude-code-ios-template/setup.sh /path/to/new-project
+```
+
+## Prerequisites
+
+| Tool | Required | Install |
+|------|----------|---------|
+| Claude Code | Yes | [claude.ai/code](https://claude.ai/code) |
+| xcodegen | For new projects only | `brew install xcodegen` |
+| swiftlint | Optional | `brew install swiftlint` |
+| swiftformat | Optional | `brew install swiftformat` |
+
+## What's included
+
+### Marketplace Plugins (global, shared across projects)
+
+| Plugin | What it does |
+|--------|-------------|
+| **ios-swift-skills** | 12 skills: SwiftUI, concurrency, security, networking, testing, performance, design system, CI/CD, App Store, PR review, Xcode QA |
+| **ios-audit-agents** | 4 audit agents (architecture, code health, API freshness, UX/accessibility) + `/run-audits` |
+| **ios-git-hooks** | Guard main branch + pre-commit quality checks on Swift files |
+| **implement-issue** | End-to-end GitHub issue → branch → implement → PR workflow |
+| **claude-notifications-macos** | macOS notifications when Claude finishes or needs permission |
+
+### Rules & Commands (per-project, customizable)
+
+| File | Triggers on | What it does |
+|------|------------|-------------|
+| `swift-patterns.md` | "ViewModel", "MVVM", "@Observable" | MVVM with @Observable, state management, DI patterns |
+| `testing-standards.md` | "test", "XCTest", "coverage" | Swift Testing preferred, protocol mocks, locale handling |
+| `git-workflow.md` | "git", "branch", "commit", "PR" | Branch naming, conventional commits, PR guidelines |
+| `prepare-release.md` | `/prepare-release 1.0.0` | Full App Store submission checklist |
 
 ## Conventions
 
-- **Architecture**: MVVM with `@Observable` + `@MainActor` ViewModels
-- **Swift version**: 6.2+ with strict concurrency
-- **UI**: SwiftUI (iOS 26+)
-- **Testing**: Swift Testing (`@Test`, `#expect`) preferred
-- **Localization**: String Catalogs (`.xcstrings`)
-- **Git**: Conventional Commits, feature branches
+- **Architecture**: MVVM with `@MainActor` + `@Observable`
+- **Testing**: Swift Testing for unit tests, XCTest for UI tests only
+- **Git**: Conventional Commits, never commit to main
+- **Language**: Code in English, conversations in Spanish
 
 ## Customization
 
 After setup, customize for your project:
 
-1. **`CLAUDE.md`** — Project-specific context and structure
-2. **`.claude/rules/`** — Relax or extend rules per project
+1. **`CLAUDE.md`** — Project-specific context and build settings
+2. **`.claude/rules/`** — Relax or extend rules as needed
 3. **`.claude/commands/`** — Add project-specific commands
 
 ## Updating plugins
 
-When skills or agents improve, update all projects at once:
+Plugins update automatically if your marketplace has `"autoUpdate": true`. To force:
 
 ```bash
-claude plugin update ios-swift-skills@claude-marketplace
-claude plugin update ios-audit-agents@claude-marketplace
-claude plugin update ios-git-hooks@claude-marketplace
-claude plugin update implement-issue@claude-marketplace
+claude plugin update ios-swift-skills@buca1821-marketplace
 ```
 
 ## License
