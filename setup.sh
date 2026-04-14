@@ -50,15 +50,18 @@ fi
 
 # --- Step 1: Register marketplace if needed ---
 echo -e "${BOLD}Step 1: Marketplace${NC}"
-if claude plugin list 2>/dev/null | grep -q "buca1821-marketplace"; then
+if claude plugin marketplace list 2>/dev/null | grep -q "buca1821-marketplace"; then
     echo "  ✓ buca1821-marketplace already registered"
 else
     echo "  Registering buca1821-marketplace..."
-    if claude plugin marketplace add buca1821-marketplace https://github.com/buca1821/claude-marketplace.git 2>/dev/null; then
+    if claude plugin marketplace add buca1821/claude-marketplace 2>&1 | grep -q "Successfully"; then
         echo "  ✓ Marketplace registered"
     else
         echo -e "${RED}  ✗ Could not register marketplace automatically.${NC}"
-        echo "  Add this to ~/.claude/settings.json manually:"
+        echo "  Run this inside Claude Code:"
+        echo "    claude plugin marketplace add buca1821/claude-marketplace"
+        echo ""
+        echo "  Or add to ~/.claude/settings.json:"
         echo '  "extraKnownMarketplaces": { "buca1821-marketplace": { "source": { "source": "git", "url": "https://github.com/buca1821/claude-marketplace.git" }, "autoUpdate": true } }'
     fi
 fi
