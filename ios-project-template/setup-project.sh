@@ -121,6 +121,15 @@ struct GreetingService: GreetingServiceProtocol {
 }
 SWIFT
 
+# String Catalog (empty — Xcode populates keys automatically during build)
+cat > "$SRC_DIR/Localizable.xcstrings" << 'JSON'
+{
+  "sourceLanguage": "en",
+  "version": "1.0",
+  "strings": {}
+}
+JSON
+
 cat > "$SRC_DIR/App/ContentView.swift" << 'SWIFT'
 import SwiftUI
 
