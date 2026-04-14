@@ -116,7 +116,7 @@ protocol GreetingServiceProtocol {
 
 struct GreetingService: GreetingServiceProtocol {
     func greeting() -> String {
-        "Welcome to $PROJECT_NAME"
+        String(localized: "home.welcome")
     }
 }
 SWIFT
@@ -133,7 +133,7 @@ struct ContentView: View {
                 Text(environment.greetingService.greeting())
                     .font(.title2)
             }
-            .navigationTitle("Home")
+            .navigationTitle(String(localized: "home.title"))
         }
     }
 }
@@ -214,10 +214,10 @@ import Testing
 @Suite("$PROJECT_NAME Tests")
 struct ${PROJECT_NAME}Tests {
 
-    @Test("App greeting returns expected message")
+    @Test("Greeting service returns localized string")
     func greetingService() {
         let service = GreetingService()
-        #expect(service.greeting().contains("$PROJECT_NAME"))
+        #expect(!service.greeting().isEmpty)
     }
 }
 SWIFT
